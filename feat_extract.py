@@ -16,7 +16,7 @@ import  scipy.io.wavfile as wav
 import  matplotlib.pyplot as plt
 import  numpy as np
 from    scipy.signal import hamming
-
+from    timeit import default_timer as timer
 
 # This function uses scipy's wavfile routine to read.
 # unfortunately scipy's function is primitive,
@@ -142,7 +142,10 @@ def main():
     plt.show()
 
     # reconstruct to wavform and save
+    startT  = timer()
     enhan_sig = reconstruct(mag_spec, phase,  FFT_LEN, FRAME_SHIFT)
+    endT    = timer()
+    print('Time Take reconstruct = ', endT-startT)
     savepath = 'new_test.wav'
     wav.write(savepath, rate, enhan_sig)
 
